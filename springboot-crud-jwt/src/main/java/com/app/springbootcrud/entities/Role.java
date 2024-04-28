@@ -4,6 +4,10 @@ package com.app.springbootcrud.entities;
 import jakarta.persistence.*;
 import jakarta.validation.Constraint;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 @Entity
 @Table(name = "roles")
 public class Role {
@@ -15,7 +19,32 @@ public class Role {
     @Column(unique = true)
     private String name;
 
+
+/*  En este caso no voy a listar los roles de los usuarios. Relación Bidireccional ManyToMany
+
+    //@JsonIgnoreProperties({"roles", "handler", "hibernateLazyInitializer"}) Solo para relación bidireccional
+    @ManyToMany(mappedBy = "roles")
+    private List<User> users;
+
     public Role() {
+        this.users = new ArrayList<>();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Role role = (Role) o;
+        return Objects.equals(getId(), role.getId()) && Objects.equals(getName(), role.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName());
+    }*/
+
+    public Role() {
+
     }
 
     public Role(String name) {

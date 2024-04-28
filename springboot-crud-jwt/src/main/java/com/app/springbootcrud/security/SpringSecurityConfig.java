@@ -3,6 +3,7 @@ package com.app.springbootcrud.security;
 import jakarta.servlet.http.HttpServlet;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,8 +23,9 @@ public class SpringSecurityConfig {
 
         // dejamos publico /users para cualquier request
         return http.authorizeHttpRequests((authz) -> authz
-                .requestMatchers("/api/users")
-                .permitAll()
+                // rutas públicas
+                .requestMatchers(HttpMethod.GET, "/api/users").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/users/register").permitAll()
                 .anyRequest()
                 .authenticated())
                 .csrf(config ->config.disable())

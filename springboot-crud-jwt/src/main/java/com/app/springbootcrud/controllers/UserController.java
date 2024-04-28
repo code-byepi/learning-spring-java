@@ -26,12 +26,21 @@ public class UserController {
         return userService.findAll();
     }
 
+    //HTTP Privada
     @PostMapping
     public ResponseEntity<?> create(@Valid @RequestBody User user, BindingResult result) {
         if (result.hasFieldErrors()) {
             return validation(result);
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(user));
+    }
+
+    // Para usuarios - HTTP Publico
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@Valid @RequestBody User user, BindingResult result) {
+        // aseguramos que el usuario no sea admin
+        user.setAdmin(false);
+        return create(user,result);
     }
 
     private ResponseEntity<?> validation(BindingResult result) {

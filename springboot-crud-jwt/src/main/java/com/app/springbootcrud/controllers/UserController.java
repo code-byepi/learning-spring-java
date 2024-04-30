@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@CrossOrigin(origins = "*") // ruta exacta
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
